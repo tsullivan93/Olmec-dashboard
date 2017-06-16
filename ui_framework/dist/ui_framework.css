@@ -361,7 +361,7 @@ body {
  * 2. Override either Bootstrap or Timelion styles.
  */
 .kuiButton--hollow {
-  color: #b2b2b2 !important;
+  color: #3CAED2 !important;
   /* 2 */
   background-color: transparent; }
   .kuiButton--hollow:enabled:hover {
@@ -1146,12 +1146,12 @@ body {
  * 1. Enforce pointer when there's no href.
  */
 .kuiLink {
-  color: #b2b2b2;
+  color: #3CAED2;
   text-decoration: none;
   cursor: pointer;
   /* 1 */ }
   .kuiLink:visited, .kuiLink:active {
-    color: #b2b2b2; }
+    color: #3CAED2; }
   .kuiLink:hover {
     color: #006E8A;
     text-decoration: underline; }
@@ -1298,7 +1298,7 @@ body {
   display: flex; }
 
 .kuiLocalDropdownHeader__action {
-  color: #b2b2b2;
+  color: #3CAED2;
   font-size: 12px;
   text-decoration: none;
   cursor: pointer; }
@@ -2180,7 +2180,7 @@ body {
     /* 1 */ }
   .kuiTab:focus:not(.kuiTab-isSelected):not(:active) {
     z-index: 1;
-    color: #b2b2b2;
+    color: #3CAED2;
     border: 1px solid #6EADC1 !important;
     padding-bottom: 11px;
     /* 4 */ }
@@ -2208,9 +2208,9 @@ body {
   /* 1 */
   line-height: inherit;
   /* 1 */
-  color: #b2b2b2; }
+  color: #3CAED2; }
   .kuiToggleButton:active {
-    color: #b2b2b2 !important;
+    color: #3CAED2 !important;
     /* 2 */ }
   .kuiToggleButton:hover {
     color: #006E8A !important;
