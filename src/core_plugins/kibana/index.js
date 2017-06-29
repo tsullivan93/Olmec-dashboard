@@ -101,9 +101,9 @@ module.exports = function (kibana) {
         icon: 'plugins/kibana/assets/visualize.svg'
       }, {
         id: 'kibana:dashboard',
-        title: 'Dashboards',
+        title: 'Dashboard',
         order: -1001,
-        url: `${kbnBaseUrl}#/dashboard`,
+        url: `${kbnBaseUrl}#/dashboards`,
         // The subUrlBase is the common substring of all urls for this app. If not given, it defaults to the url
         // above. This app has to use a different subUrlBase, in addition to the url above, because "#/dashboard"
         // routes to a page that creates a new dashboard. When we introduced a landing page, we needed to change
