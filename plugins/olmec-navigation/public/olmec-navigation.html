@@ -1,0 +1,146 @@
+<div ng-controller="olmec-navigation-Controller" class="olmec-navigation">
+	<head>
+    <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    #dropdown {
+        padding:3px;
+        margin: 0;
+        -webkit-border-radius:4px;
+        -moz-border-radius:4px;
+        background: #272727;
+        color:#888;
+        border:none;
+        outline:none;
+        display: inline-block;
+        -webkit-appearance:none;
+        -moz-appearance:none;
+        appearance:none;
+        cursor:pointer;
+    }
+
+    /* Targetting Webkit browsers only. FF will show the dropdown arrow with so much padding. */
+    @media screen and (-webkit-min-device-pixel-ratio:0) {
+        select {padding-right:18px}
+    }
+    
+    #pages {
+      background: #272727;
+      color: white;
+    }
+
+
+    #myInput {
+      background-position: 10px 12px;
+      background-repeat: no-repeat;
+      width: 100%;
+      font-size: 16px;
+      color: black;
+      padding: 12px 20px 12px 40px;
+      border: 1px solid #ddd;
+      margin-bottom: 12px;
+    }
+
+    #myUL {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    #myUL li a {
+      border: 1px solid #ddd;
+      margin-top: -1px; /* Prevent double borders */
+      background-color: #272727;
+      padding: 12px;
+      text-decoration: none;
+      font-size: 18px;
+      color: white;
+      display: block
+    }
+
+    #myUL li a.header {
+      background-color: #e2e2e2;
+      cursor: default;
+    }
+
+    #myUL li a:hover:not(.header) {
+      background-color: #595858;
+    }
+    
+    </style>
+    </head>
+    <body>
+
+    <h2>Hosts</h2>
+
+
+
+    <input type="text" id="myInput" placeholder="Search for hostname.." title="Type in a name">
+    
+    <label id="dropdown" >
+        <select id="pages">
+            <option value="-Metricbeat-system-overview">Please select a Page</option>
+            <option value="-Metricbeat-system-overview">Overview</option>
+            <option value="-Metricbeat-cpu">Load/CPU</option>
+            <option value="-Metricbeat-memory">Memory</option>
+            <option value="-Metricbeat-processes">Processes</option>
+            <option value="-Metricbeat-network">Network</option>
+            <option value="-Metricbeat-filesystem">Filesystem</option>
+            <option value="-Metricbeat-filesystem-per-Host">Filesystem per Host</option>
+        </select>
+    </label>
+
+    <div id="test-list" >
+        <ul class="list" id="myUL">
+            <li id="agg"  <span class="tag"><a id="agg_link" href="kibana#/dashboard/{{vis.params.format}}-Metricbeat-system-overview?_a=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,key:query,negate:!f,value:'%7B%22wildcard%22:%7B%22beat.hostname%22:%22*%22%7D%7D'),query:(wildcard:(beat.hostname:'*')))),options:(darkTheme:!t),viewMode:view)&_g=()">Current Aggregation</a></span></li>
+            <li id="myli" class="host" <span class="tag" ng-repeat-start="tag in tags"><a id="link" href="kibana#/dashboard/{{vis.params.format}}-Metricbeat-system-overview?_a=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'',key:beat.hostname,negate:!f,value:{{tag.label}}),query:(match:(beat.hostname:(query:{{tag.label}},type:phrase))))),viewMode:view)">{{tag.label}}</a></span></li>
+            <li ng-repeat-end></li>
+        </ul>
+    </div>
+    <script>
+    var page = "-Metricbeat-system-overview"
+    var global_filter = "\\*"
+    document.getElementById("pages").onclick = dropdownfunc
+    document.getElementById("myInput").onkeyup = myFunction
+    function dropdownfunc() {
+        var e = document.getElementById("pages");
+		var strUser = e.options[e.selectedIndex].value;
+        var link = document.getElementsByTagName("a");
+        for (i = 0; i <link.length; i++){
+            link[i].href = link[i].href.replace(page, strUser);
+        }
+        page = strUser;
+    }
+    
+
+    
+    function myFunction() {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        var elid = li[i].id
+        if (elid == "myli"){
+            a = li[i].getElementsByTagName("a")[0];
+            if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+
+                }
+            }
+        }
+    var re = new RegExp(global_filter, 'g');
+    var replacement = input.value + '*'
+    document.getElementById("agg_link").href = document.getElementById("agg_link").href.replace(re, replacement)
+    global_filter = replacement;
+    global_filter = global_filter.replace('*','\\*')
+    }
+    </script>
+    
+    <body>
+</div>
